@@ -28,7 +28,7 @@ router.post('/', async (req, res) => {
 router.patch("/:brandId", async (req, res) => {
     try {
         const updatedBrand = await Brand.updateOne(
-            { _id: req.params.vehicleTypeId },
+            { _id: req.params.brandId },
             {
                 $set: {
                     "desciption": req.body.desciption,

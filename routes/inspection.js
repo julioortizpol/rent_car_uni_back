@@ -2,28 +2,38 @@ const express = require('express');
 const router = express.Router();
 const Inspection = require('../models/Inspection');
 const Employee = require('../models/employee');
-const Client = require('../models/client');
-const {Vehicle} = require('../models/vehicle');
 
 
 
 router.get('/', async (req, res) => {
     try {
         const inspections = await Inspection.find()
-        .populate({ path: 'employeeId', model: Employee})
-        .populate({ path: 'client', model: Client})
-        .populate({ path: 'vehicle', model: Vehicle});;
+        ;
         res.json(inspections);
     } catch (err) {
         res.json({ message: err })
     }
 });
 
+router.get('/:InspectionId', async (req, res) => {
+    try{
+        const inspection = await Inspection.findById(req.params.InspectionId);
+        res.json(inspection);
+    }catch(err){
+        res.json({message:err})
+    }
+});
+
 
 router.post('/', async (req, res) => {
+    if(typeof(typeof(req.body.date)) == "string"){
+        var stringDate = req.body.date;
+        stringDate.indexOf("T");
+        stringDate = stringDate.slice(1, stringDate.indexOf("T"));
+        req.body.date = new Date(stringDate);
+    }
     const inspection = new Inspection({
         vehicle: req.body.vehicle,
-        client: req.body.client,
         grated: req.body.grated,
         fuelQuantity: req.body.fuelQuantity,
         replacementRubber: req.body.replacementRubber,
@@ -49,7 +59,6 @@ router.patch("/:InspectionId", async (req, res) => {
             {
                 $set: {
                     vehicle: req.body.vehicle,
-                    client: req.body.client,
                     grated: req.body.grated,
                     fuelQuantity: req.body.fuelQuantity,
                     replacementRubber: req.body.replacementRubber,

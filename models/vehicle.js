@@ -29,9 +29,10 @@ const ModelSchema = mongoose.Schema({
 
 const VehicleSchema = mongoose.Schema({
     desciption: String,
-    chasisNumber: Number,
-    motorNumber: Number,
+    chasisNumber: String,
+    motorNumber: String,
     licensePlateNumber: String,
+    imageUrl: String,
     vehicleType: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'vehicletypes'

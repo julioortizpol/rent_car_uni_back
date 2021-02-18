@@ -5,7 +5,6 @@ const  {Model, Brand}  = require('../models/vehicle');
 router.get('/', async (req, res) => {
     try {
         const model = await Model.find().populate({ path: 'brand', model: Brand });
-        console.log("helo " + model)
         res.json(model);
     } catch (err) {
         console.log(err)

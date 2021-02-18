@@ -15,6 +15,7 @@ const vehicleRoutes = require('./routes/vehicle');
 const clientRoutes = require('./routes/client');
 const inspectionRoutes = require('./routes/inspection');
 const rentAndReturnRoutes = require('./routes/rentAdnReturn');
+const userRoutes = require('./routes/user');
 
 app.use(bodyParser.json())
 app.use(cors())
@@ -29,6 +30,7 @@ app.use('/vehicle', vehicleRoutes)
 app.use('/client', clientRoutes)
 app.use('/inspection', inspectionRoutes)
 app.use('/rentAndReturn', rentAndReturnRoutes)
+app.use('/user', userRoutes)
 
 
 app.get('/', (req,res) =>{
@@ -40,7 +42,7 @@ mongoose.connect(process.env.DB_CONNECCTION, { useUnifiedTopology: true },()=>{
     console.log("Succes")
 })
 
-app.listen(3000, ()=> console.log('Listen '))
+app.listen(4040, ()=> console.log('Listen '))
 
 
 

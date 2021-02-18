@@ -9,14 +9,27 @@ const { VehicleType,
 router.get('/', async (req, res) => {
     try {
         const vehicle = await Vehicle.find()
-            .populate({ path: 'brand', model: Brand , select:"desciption -_id"})
-            .populate({ path: 'fuelType', model: FuelType, select:"desciption -_id" })
-            .populate({ path: 'model', model: Model , select:"desciption -_id"})
-            .populate({ path: 'vehicleType', model: VehicleType , select:"desciption -_id"});
+            .populate({ path: 'brand', model: Brand , select:"desciption "})
+            .populate({ path: 'fuelType', model: FuelType, select:"desciption " })
+            .populate({ path: 'model', model: Model , select:"desciption "})
+            .populate({ path: 'vehicleType', model: VehicleType , select:"desciption"});
         res.json(vehicle);
     } catch (err) {
         console.log(err)
         res.json({ message: err })
+    }
+
+});
+
+router.get('/:vehicleId', async (req, res) => {
+    try{
+        const vehicle = await Vehicle.findById(req.params.vehicleId).populate({ path: 'brand', model: Brand , select:"desciption "})
+        .populate({ path: 'fuelType', model: FuelType, select:"desciption " })
+        .populate({ path: 'model', model: Model , select:"desciption "})
+        .populate({ path: 'vehicleType', model: VehicleType , select:"desciption"});
+        res.json(vehicle);
+    }catch(err){
+        res.json({message:err})
     }
 });
 
@@ -29,6 +42,7 @@ router.post('/', async (req, res) => {
         licensePlateNumber: req.body.licensePlateNumber,
         vehicleType: req.body.vehicleType,
         brand: req.body.brand,
+        imageUrl: req.body.imageUrl,
         model: req.body.model,
         fuelType: req.body.fuelType,
         state: true
@@ -53,6 +67,7 @@ router.patch("/:vehicleId", async (req, res) => {
                     licensePlateNumber: req.body.licensePlateNumber,
                     vehicleType: req.body.vehicleType,
                     brand: req.body.brand,
+                    imageUrl: req.body.imageUrl,
                     model: req.body.model,
                     fuelType: req.body.fuelType,
                     state: req.body.state

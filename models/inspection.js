@@ -5,10 +5,6 @@ const InspectionSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'vehicle'
     },
-    client: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'client'
-    },
     grated: Boolean,
     fuelQuantity: String,
     replacementRubber:Boolean,

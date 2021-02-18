@@ -13,6 +13,10 @@ const RentAndReturnSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'employee'
     },
+    inspection:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'inspection'
+    },
     rentDate: Date,
     devolutionDate: Date,
     dayAmount: Number,

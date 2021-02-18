@@ -25,6 +25,12 @@ router.get('/', async (req, res) => {
 
 
 router.post('/', async (req, res) => {
+    if(typeof(typeof(req.body.dateOfAdmision)) == "string"){
+        var stringDate = req.body.dateOfAdmision;
+        stringDate.indexOf("T");
+        stringDate = stringDate.slice(1, stringDate.indexOf("T"));
+        req.body.dateOfAdmision = new Date(stringDate);
+    }
     const employee = new Employee({
         "name": req.body.name,
         "personId": req.body.personId,
@@ -42,6 +48,12 @@ router.post('/', async (req, res) => {
 });
 
 router.patch("/:employeeId", async (req,res)=>{
+    if(typeof(typeof(req.body.dateOfAdmision)) == "string"){
+        var stringDate = req.body.dateOfAdmision;
+        stringDate.indexOf("T");
+        stringDate = stringDate.slice(1, stringDate.indexOf("T"));
+        req.body.dateOfAdmision = new Date(stringDate);
+    }
     try{
         const updatedEmployee = await Employee.updateOne(
             {_id: req.params.employeeId},
